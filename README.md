@@ -1,27 +1,56 @@
-# F1
+# 🏎️ F1 — volta rápida
 
-Dashboard Streamlit para consultar as cinco voltas válidas mais rápidas em sessões de corrida, por circuito e temporada, usando a API OpenF1.
+### Entre no cockpit e explore as voltas mais rápidas da Fórmula 1.
 
-## Início rápido
+Um dashboard interativo feito com Streamlit e alimentado pela [API OpenF1](https://openf1.org/). Escolha uma temporada, selecione um circuito e veja o top 5 de voltas válidas em sessões de corrida.
 
-Requer Python 3.11.5 ou superior e [uv](https://docs.astral.sh/uv/).
+> ☁️ **Quer experimentar sem instalar?** O dashboard ainda não está publicado online. Para publicar, conecte este repositório ao [Streamlit Community Cloud](https://share.streamlit.io/) e use `src/f1/dashboard.py` como arquivo principal. Depois, adicione aqui o link público do app.
 
-```bash
+## 🎮 Dê uma volta
+
+No dashboard, você pode:
+
+1. Escolher uma temporada a partir de 2023.
+2. Selecionar um circuito.
+3. Comparar as cinco voltas mais rápidas disponíveis, com piloto, equipe, GP e número da volta.
+
+Os resultados vêm da OpenF1. A primeira consulta pode levar alguns segundos; os dados carregados ficam em cache por seis horas para agilizar visitas seguintes.
+
+## 🚦 Rode na sua máquina
+
+Você precisa do [Python 3.11.5 ou superior](https://www.python.org/downloads/) e do [uv](https://docs.astral.sh/uv/getting-started/installation/).
+
+```powershell
+git clone https://github.com/robertrossi/F1.git
+cd F1
 uv sync --locked
 uv run streamlit run src/f1/dashboard.py
 ```
 
-O Streamlit abrirá o dashboard no navegador. Escolha uma temporada e um circuito para ver o ranking. Apenas sessões `Race` entram no cálculo; treinos, classificação e sprint ficam fora. Voltas sem tempo válido e voltas de saída dos boxes são excluídas. Um piloto pode aparecer mais de uma vez no top 5.
+O Streamlit abrirá a página no navegador. Se isso não acontecer, acesse [http://localhost:8501](http://localhost:8501). O app precisa de conexão com a internet para consultar a API OpenF1.
 
-O histórico gratuito da OpenF1 começa em 2023. Os dados de voltas são carregados por sessão e armazenados em cache por seis horas para reduzir chamadas repetidas à API.
+## 🏁 Como funciona o ranking
 
-## Desenvolvimento
+- Inclui apenas sessões de corrida (`Race`); treinos, classificação e sprint ficam fora.
+- Descarta voltas sem tempo válido e voltas de saída dos boxes.
+- Ordena pelo menor tempo e mostra até cinco voltas por circuito e temporada.
+- Um piloto pode aparecer mais de uma vez.
 
-```bash
+## 🧰 Nos bastidores
+
+- `src/f1/api/client.py` cuida das consultas HTTP, filtros e tratamento de erros.
+- `src/f1/services/fastest_laps.py` aplica as regras de seleção e classificação das voltas.
+- `src/f1/dashboard.py` monta a interface interativa.
+- `tests/unit/` contém testes sem chamadas à rede.
+- `docs/` reúne a documentação do projeto.
+
+## 🧪 Verificações de desenvolvimento
+
+```powershell
+uv run pytest
 uv run ruff check .
 uv run ruff format --check .
-uv run pytest
 uv run mkdocs build --strict
 ```
 
-Veja a [documentação](docs/index.md), o [resumo da API](doc_api.md) e os [padrões de engenharia](SKILL.md).
+Veja a [documentação do projeto](docs/index.md), o [resumo da API](doc_api.md) e os [padrões de engenharia](SKILL.md).
