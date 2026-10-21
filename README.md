@@ -4,7 +4,7 @@
 
 Um dashboard interativo feito com Streamlit e alimentado pela [API OpenF1](https://openf1.org/). Escolha uma temporada, selecione um circuito e veja o top 5 de voltas válidas em sessões de corrida.
 
-> ☁️ **Quer experimentar sem instalar?** O dashboard ainda não está publicado online. Para publicar, conecte este repositório ao [Streamlit Community Cloud](https://share.streamlit.io/) e use `src/f1/dashboard.py` como arquivo principal. Depois, adicione aqui o link público do app.
+> ☁️ **Quer experimentar sem instalar?** [☁️ Abrir o dashboard online](https://ggp6xhn2w4eq8fzruzhdeh.streamlit.app/)
 
 ## 🎮 Dê uma volta
 
