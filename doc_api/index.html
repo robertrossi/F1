@@ -1,0 +1,756 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Cliente Python para dados históricos da OpenF1">
+      
+      
+      
+      
+        <link rel="prev" href="../arquitetura/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Documentação da API - F1 OpenF1</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#openf1-api-resumo" class="md-skip">
+          Pular para conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href=".." title="F1 OpenF1" class="md-header__button md-logo" aria-label="F1 OpenF1" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            F1 OpenF1
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Documentação da API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando busca
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="F1 OpenF1" class="md-nav__button md-logo" aria-label="F1 OpenF1" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    F1 OpenF1
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Início
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instalacao/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Instalação
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../uso/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Uso
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../arquitetura/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arquitetura
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentação da API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Documentação da API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#acesso-e-formato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acesso e formato
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endpoints-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoints principais
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-consultar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como consultar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identificadores-e-datas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identificadores e datas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-com-curl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo com cURL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observações
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referência
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#acesso-e-formato" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Acesso e formato
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#endpoints-principais" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Endpoints principais
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#como-consultar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Como consultar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identificadores-e-datas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Identificadores e datas
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exemplo-com-curl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Exemplo com cURL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#observacoes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Observações
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencia" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referência
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="openf1-api-resumo">OpenF1 API — resumo</h1>
+<p>Resumo prático da <a href="https://openf1.org/docs/#api-endpoints">documentação oficial</a>. A OpenF1 é uma API não oficial para dados históricos e ao vivo de Fórmula 1.</p>
+<h2 id="acesso-e-formato">Acesso e formato</h2>
+<ul>
+<li><strong>Base URL:</strong> <code>https://api.openf1.org/v1</code></li>
+<li>Os endpoints retornam JSON por padrão; a API também oferece formato CSV.</li>
+<li>Dados históricos a partir de 2023 são gratuitos e não exigem autenticação.</li>
+<li>Dados em tempo real exigem assinatura paga.</li>
+<li>Os exemplos abaixo são requisições HTTP GET. Campos desconhecidos ou sem dados podem vir como <code>null</code>.</li>
+</ul>
+<h2 id="endpoints-principais">Endpoints principais</h2>
+<table>
+<thead>
+<tr>
+<th>Endpoint</th>
+<th>O que retorna</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/meetings</code></td>
+<td>Etapas/GPs e testes: circuito, país, local e datas.</td>
+</tr>
+<tr>
+<td><code>/sessions</code></td>
+<td>Sessões de uma etapa: treinos, classificação, corrida etc.</td>
+</tr>
+<tr>
+<td><code>/drivers</code></td>
+<td>Pilotos participantes, número, nome, equipe e cor da equipe.</td>
+</tr>
+<tr>
+<td><code>/car_data</code></td>
+<td>Telemetria do carro (velocidade, RPM, marcha, acelerador, freio e DRS; ~3,7 Hz).</td>
+</tr>
+<tr>
+<td><code>/location</code></td>
+<td>Coordenadas aproximadas dos carros na pista (~3,7 Hz).</td>
+</tr>
+<tr>
+<td><code>/laps</code></td>
+<td>Voltas, tempos de setores, velocidades e dados de mini-setores.</td>
+</tr>
+<tr>
+<td><code>/intervals</code></td>
+<td>Intervalo até o carro à frente e diferença para o líder (corridas; atualização ~4 s).</td>
+</tr>
+<tr>
+<td><code>/position</code></td>
+<td>Posição dos pilotos ao longo da sessão.</td>
+</tr>
+<tr>
+<td><code>/pit</code></td>
+<td>Passagens e paradas no pit lane.</td>
+</tr>
+<tr>
+<td><code>/stints</code></td>
+<td>Stints e compostos de pneus, voltas e idade inicial do pneu.</td>
+</tr>
+<tr>
+<td><code>/race_control</code></td>
+<td>Mensagens de controle de corrida, bandeiras e eventos.</td>
+</tr>
+<tr>
+<td><code>/session_result</code></td>
+<td>Resultado final da sessão, posição, tempo e status.</td>
+</tr>
+<tr>
+<td><code>/starting_grid</code></td>
+<td>Posições de largada.</td>
+</tr>
+<tr>
+<td><code>/weather</code></td>
+<td>Condições meteorológicas na pista (atualização ~1 min).</td>
+</tr>
+<tr>
+<td><code>/team_radio</code></td>
+<td>Links para algumas gravações de rádio disponíveis.</td>
+</tr>
+<tr>
+<td><code>/overtakes</code></td>
+<td>Mudanças de posição em corridas; podem incluir pit stops e penalidades.</td>
+</tr>
+<tr>
+<td><code>/championship_drivers</code>, <code>/championship_teams</code></td>
+<td>Classificação do campeonato (beta; sessões de corrida).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="como-consultar">Como consultar</h2>
+<p>Os filtros são enviados na query string. É possível combinar campos:</p>
+<pre><code class="language-text">https://api.openf1.org/v1/drivers?session_key=latest
+https://api.openf1.org/v1/meetings?year=2025&amp;country_name=Brazil
+https://api.openf1.org/v1/laps?session_key=latest&amp;driver_number=1&amp;lap_number=10
+https://api.openf1.org/v1/car_data?session_key=latest&amp;driver_number=1&amp;speed&gt;=300
+</code></pre>
+<p>Parâmetros de comparação aceitos:</p>
+<ul>
+<li>Igualdade: <code>campo=valor</code></li>
+<li>Comparações numéricas: <code>campo&gt;=valor</code>, <code>campo&lt;=valor</code>, <code>campo&gt;valor</code>, <code>campo&lt;valor</code></li>
+<li>Intervalo de datas: <code>date&gt;=...</code> e <code>date&lt;=...</code></li>
+<li>Para filtrar por mais de um valor do mesmo campo, repita o parâmetro. Exemplo: <code>driver_number=1&amp;driver_number=44</code>.</li>
+</ul>
+<p>Em URLs montadas manualmente, codifique caracteres especiais da query string quando necessário (por exemplo, <code>&lt;</code> como <code>%3C</code>).</p>
+<h2 id="identificadores-e-datas">Identificadores e datas</h2>
+<ul>
+<li><code>meeting_key</code> identifica um fim de semana/etapa; <code>session_key</code> identifica uma sessão específica.</li>
+<li>Use <code>latest</code> para consultar a etapa ou sessão mais recente, quando o endpoint aceitar esse identificador.</li>
+<li><code>driver_number</code> identifica o piloto naquela temporada.</li>
+<li>Datas são informadas em UTC no formato ISO 8601. Prefira incluir o fuso, por exemplo: <code>2025-03-16T15:00:00Z</code>.</li>
+<li>Uma consulta ampla pode retornar muitos registros, especialmente em telemetria e localização; filtre por sessão, piloto e/ou janela de tempo.</li>
+</ul>
+<h2 id="exemplo-com-curl">Exemplo com cURL</h2>
+<pre><code class="language-bash">curl &quot;https://api.openf1.org/v1/sessions?year=2025&amp;country_name=Brazil&quot;
+</code></pre>
+<h2 id="observacoes">Observações</h2>
+<ul>
+<li>Nem todos os endpoints têm dados para todas as sessões; confira a descrição de cada endpoint na documentação.</li>
+<li><code>/laps</code>: mini-setores não estão disponíveis durante corridas e podem não corresponder exatamente às cores exibidas na transmissão.</li>
+<li><code>/overtakes</code>: disponível apenas em corridas e pode estar incompleto.</li>
+<li><code>/session_result</code> e <code>/starting_grid</code> são publicados alguns minutos após os dados oficiais correspondentes.</li>
+<li><code>/team_radio</code> contém apenas uma seleção de comunicações; a disponibilidade caiu bastante a partir de 2026.</li>
+<li>Os endpoints de campeonato estão marcados como beta e são apenas para corridas.</li>
+<li>A OpenF1 é um projeto independente e não é afiliado à Fórmula 1.</li>
+</ul>
+<h2 id="referencia">Referência</h2>
+<ul>
+<li><a href="https://openf1.org/docs/#api-endpoints">Documentação oficial — API endpoints e filtros</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "mais 1 nesta p\u00e1gina", "search.result.more.other": "# mais nesta p\u00e1gina", "search.result.none": "Nenhum documento encontrado", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
